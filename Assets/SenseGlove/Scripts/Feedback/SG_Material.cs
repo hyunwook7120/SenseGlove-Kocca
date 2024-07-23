@@ -22,12 +22,14 @@ namespace SG
         public float MaxForce
         {
             get { return this.materialProperties != null ? this.materialProperties.maxForce : 1.0f; }
+            set { if (this.materialProperties != null) this.materialProperties.maxForce = value; }
         }
 
         /// <summary> Retrieve the maximum force distance (x-axis 1 on the forceResponse) from this SG_Material. </summary>
         public float MaxForceDistance
         {
             get { return this.materialProperties != null ? this.materialProperties.maxForceDist : 0.0f; }
+            set { if (this.materialProperties != null) this.materialProperties.maxForceDist = value; }
         }
 
         //public AnimationCurve forceRepsonse = AnimationCurve.Constant(0, 1, 1);
@@ -69,6 +71,23 @@ namespace SG
 
 
         #endregion Properties
+
+        //----------------------------------------------------------------------------------
+        // UI Button Methods
+
+        #region UIMethods
+
+        public void SetMaxForce(float value)
+        {
+            MaxForce = value;
+        }
+
+        public void SetMaxForceDistance(float value)
+        {
+            MaxForceDistance = value;
+        }
+
+        #endregion UIMethods
 
         //----------------------------------------------------------------------------------
         // Material Methods

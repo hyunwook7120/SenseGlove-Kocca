@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac56064fcf58ee34e8021d387ea94608, type: 3}
   m_Name: DefaultMaterial
   m_EditorClassIdentifier: 
-  maxForce: 1
+  maxForce: 0.1
   maxForceDist: 0
   forceRepsonse:
     serializedVersion: 2
