@@ -10,19 +10,18 @@ public class MaterialSettingsUI : MonoBehaviour
     public Button setMaxForceButton3;
     public Button setMaxForceButton4;
     public Button setMaxForceButton5;
-    public Button setMaxForceButton6;
+
+    string currentButton;
 
 
 
     void Start()
     {
-        setMaxForceButton1.onClick.AddListener(() => SetMaxForce(0.0f));
-        setMaxForceButton2.onClick.AddListener(() => SetMaxForce(0.1f));
-        setMaxForceButton3.onClick.AddListener(() => SetMaxForce(0.3f));
-        setMaxForceButton4.onClick.AddListener(() => SetMaxForce(0.4f));
-        setMaxForceButton5.onClick.AddListener(() => SetMaxForce(0.6f));
-        setMaxForceButton6.onClick.AddListener(() => SetMaxForce(1.0f));
-
+        setMaxForceButton1.onClick.AddListener(() => { SetMaxForce(0.0f); currentButton = "1"; });
+        setMaxForceButton2.onClick.AddListener(() => { SetMaxForce(0.1f); currentButton = "2"; });
+        setMaxForceButton3.onClick.AddListener(() => { SetMaxForce(0.3f); currentButton = "3"; });
+        setMaxForceButton4.onClick.AddListener(() => { SetMaxForce(0.5f); currentButton = "4"; });
+        setMaxForceButton5.onClick.AddListener(() => { SetMaxForce(1.0f); currentButton = "5"; });
     }
 
     void SetMaxForce(float value)
@@ -31,5 +30,10 @@ public class MaterialSettingsUI : MonoBehaviour
         {
             material.SetMaxForce(value);
         }
+    }
+
+    public string GetCurrentButton()
+    {
+        return currentButton;
     }
 }
