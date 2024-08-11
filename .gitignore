@@ -7,7 +7,7 @@
 *.Unity.csproj
 *.Unity.Editor.csproj
 *.Unity.Plugins.csproj
-
+[Uu]ser[Ss]ettings/
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
@@ -17,6 +17,7 @@ VERSIONINFO.rc
 [Ee]xported[Oo]bj/
 [Oo]bj/
 .vs/
+.vscode/
 *.svd
 *.userprefs
 /*.csproj
