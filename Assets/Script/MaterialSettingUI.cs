@@ -77,7 +77,7 @@ public class MaterialSettingsUI : MonoBehaviour
         {
             count = 8 + count;
         }
-        Debug.Log(count);
+        Debug.Log(count+1);
         SetMaxForce(testCase[count][0]);
         SetMaxForceDist(testCase[count][1]);
     }
@@ -93,7 +93,7 @@ public class MaterialSettingsUI : MonoBehaviour
         }
         else
         {
-            Debug.Log(count);
+            Debug.Log(count+1);
             SetMaxForce(testCase[count][0]);
             SetMaxForceDist(testCase[count][1]);
         }

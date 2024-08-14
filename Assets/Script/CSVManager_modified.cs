@@ -155,13 +155,13 @@ public class CSVManager_modified : MonoBehaviour
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    if (fingerFeedbackScripts[i] != null)
+                    if (fingerFeedbackScripts[i].IsTouching())
                     {
                         touchedMaterial = fingerFeedbackScripts[i].TouchedMaterialScript;
                         break;
                     }
                 }
-                Debug.Log("Touching");
+                // Debug.Log("Touching");
                 touching = true;
                 StartCoroutine(SaveCSVFile());
             }
@@ -170,7 +170,7 @@ public class CSVManager_modified : MonoBehaviour
                 if (selectTouchMode == SelectTouchMode.Always)
                 {
                     touchedMaterial = null;
-                    Debug.Log("UnTouching");
+                    // Debug.Log("UnTouching");
                     touching = false;
                     StartCoroutine(SaveCSVFile());
                 }
@@ -262,7 +262,7 @@ public class CSVManager_modified : MonoBehaviour
         for (int f = 0; f < forceLevels.Length; f++)
         {
             tempData[f+1] = (fingerFeedbackScripts[f].ForceLevel / 100.0f).ToString();
-            Debug.Log(tempData[f+1]);
+            // Debug.Log(tempData[f+1]);
         }
 
         for (int i = 0; i < 5; i++)
