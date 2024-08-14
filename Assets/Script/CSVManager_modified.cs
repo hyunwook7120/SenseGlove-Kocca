@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text; // StringBuilder용도
 using SG;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,15 +15,17 @@ public class CSVManager_modified : MonoBehaviour
         Always,         // 항상 저장
         OnlyTouched     // 터치된 경우에만 저장
     }
-    public enum SelectUIMode
+
+    public enum FindRenderingMode
     {
-        Use,            // UI 터치로 데이터 추가로 받아올지 여부
+        Use,
         Unuse
     }
     
     [Header("Select Mode")]
     public SelectTouchMode selectTouchMode;
-    public SelectUIMode selectUIMode;
+    public FindRenderingMode findRenderingMode;
+
 
 
     // 코루틴 초기화
@@ -44,6 +48,7 @@ public class CSVManager_modified : MonoBehaviour
     SG_FingerFeedback[] fingerFeedbackScripts;
     Transform[][] fingerJoints;
     bool touching;
+    SG_Material touchedMaterial;
 
     // Our Scene Variable
     MaterialSettingsUI UISetting;
@@ -141,21 +146,6 @@ public class CSVManager_modified : MonoBehaviour
         {
             Debug.Log($"Finger {f} ForceLevel: {fingerFeedbackScripts[f].ForceLevel}");
         }
-
-        // UIMode 설정시 UIManager 오브젝트 가져오기
-        if (selectUIMode == SelectUIMode.Use)
-        {
-            if (UIManager == null)
-            {
-                Debug.LogError("UIManager is NULL.");
-                return; // UI Manager 오브젝트가 없으므로 종료
-            }
-            else
-            {
-                // UIManager 오브젝트에서 Material Settings UI 컴포넌트 가져오기.
-                UISetting = UIManager.GetComponent<MaterialSettingsUI>();
-            }
-        }
     }
     void Update()
     {
@@ -163,6 +153,14 @@ public class CSVManager_modified : MonoBehaviour
         {
             if (fingerFeedbackScripts[0].IsTouching() || fingerFeedbackScripts[1].IsTouching() || fingerFeedbackScripts[2].IsTouching() || fingerFeedbackScripts[3].IsTouching())
             {
+                for (int i = 0; i < 4; i++)
+                {
+                    if (fingerFeedbackScripts[i] != null)
+                    {
+                        touchedMaterial = fingerFeedbackScripts[i].TouchedMaterialScript;
+                        break;
+                    }
+                }
                 Debug.Log("Touching");
                 touching = true;
                 StartCoroutine(SaveCSVFile());
@@ -171,6 +169,7 @@ public class CSVManager_modified : MonoBehaviour
             {
                 if (selectTouchMode == SelectTouchMode.Always)
                 {
+                    touchedMaterial = null;
                     Debug.Log("UnTouching");
                     touching = false;
                     StartCoroutine(SaveCSVFile());
@@ -181,7 +180,7 @@ public class CSVManager_modified : MonoBehaviour
 
     void Awake()
     {
-        tempData = new string[28];
+        tempData = new string[31];
         tempData[0] = "Name";
         tempData[1] = "FFB_Thumb";
         tempData[2] = "FFB_Index";
@@ -218,12 +217,11 @@ public class CSVManager_modified : MonoBehaviour
         {
             tempData[26] = "IsTouching";
         }
-        if (selectUIMode == SelectUIMode.Use)
-        {
-            tempData[27] = "UILevel";
-        }
+        tempData[27] = "MaxForce";
+        tempData[28] = "Material";
+        tempData[29] = "Rendering Method";
+        tempData[30] = "TimeStamp";
 
-        //tempData[22] = "Wrist";
         
         data.Add((string[])tempData.Clone());
         string[][] output = new string[data.Count][];
@@ -286,12 +284,38 @@ public class CSVManager_modified : MonoBehaviour
                 tempData[26] = "No";
             }
         }
-
-        if (selectUIMode == SelectUIMode.Use)
-        {
-            tempData[27] = UISetting.GetCurrentButton();
-        }
         
+        if (touching)
+        {
+            tempData[27] = touchedMaterial.materialProperties.maxForce.ToString();
+            tempData[28] = touchedMaterial.gameObject.ToString();
+        }
+        else
+        {
+            tempData[27] = null;
+            tempData[28] = null;
+        }
+
+        if (findRenderingMode == FindRenderingMode.Use)
+        {
+            if (touching)
+            {
+                if (touchedMaterial.materialProperties.maxForceDist == 0.0f || this.isLinear(touchedMaterial.materialProperties.forceRepsonse))
+                {
+                    tempData[29] = "1";
+                }
+                else
+                {
+                    tempData[29] = "2";
+                }
+            }
+            else
+            {
+                tempData[29] = null;
+            }
+        }
+        tempData[30] = DateTime.Now.ToString();
+
         data.Add((string[])tempData.Clone());
 
         string[][] output = new string[data.Count][];
@@ -324,6 +348,32 @@ public class CSVManager_modified : MonoBehaviour
         
         yield return new WaitForSecondsRealtime(minSaveInterval);
         isCoroutineRunning = false;
+    }
+
+    bool isLinear(AnimationCurve curve)
+    {
+        if (curve.keys.Length == 0)
+        {
+            // 키가 없으면 일정한 값이 없으므로 false를 반환
+            return false;
+        }
+
+        // 첫 번째 키프레임의 값을 기준으로 설정
+        float firstValue = curve.keys[0].value;
+
+        // 곡선을 일정 간격으로 샘플링하여 값이 동일한지 확인
+        int samplePoints = 10;
+        for (int i = 0; i <= samplePoints; i++)
+        {
+            float t = (float)i / samplePoints; // 0.0f에서 1.0f 사이의 값을 얻음
+            float sampledValue = curve.Evaluate(t);
+            if (Mathf.Abs(sampledValue - firstValue) > 0)
+            {
+                // 샘플링된 값이 기준값과 다르면 일정한 곡선이 아님
+                return false;
+            }
+        }
+        return true;
     }
 
 }
