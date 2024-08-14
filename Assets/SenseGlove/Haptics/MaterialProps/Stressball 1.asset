@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac56064fcf58ee34e8021d387ea94608, type: 3}
   m_Name: Stressball 1
   m_EditorClassIdentifier: 
-  maxForce: 0.1
+  maxForce: 0.6
   maxForceDist: 0.04
   forceRepsonse:
     serializedVersion: 2
