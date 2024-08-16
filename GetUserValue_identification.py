@@ -14,6 +14,18 @@ max_entries = 120
 # 현재 수정 중인 인덱스
 current_index = None
 
+# 현재 입력 횟수
+current_entry_count = 0
+
+# MaxForce 값을 매핑하는 딕셔너리
+force_map = {
+    1: 0.0,
+    2: 0.1,
+    3: 0.3,
+    4: 0.6,
+    5: 1.0
+}
+
 def save_data():
     global data_list
     filename = f"{name}.csv"
@@ -23,7 +35,7 @@ def save_data():
     with open(filename, mode='a', newline='') as file:
         writer = csv.writer(file)
         if not file_exists:
-            writer.writerow(['name', 'perception', 'timestamp'])
+            writer.writerow(['name', 'perception', 'MaxForce', 'timestamp'])
         writer.writerows(data_list)
     
     # 저장 후 데이터 리스트 초기화
@@ -31,21 +43,26 @@ def save_data():
 
 # 입력 값을 리스트에 저장하거나 수정하는 함수
 def store_value():
-    global data_list, max_entries, current_index, selected_value
+    global data_list, max_entries, current_index, selected_value, current_entry_count
 
     try:
         perception = selected_value.get()
         if perception == 0:
             raise ValueError
 
+        max_force = force_map[perception]  # MaxForce 값을 선택한 인지 강도에 따라 설정
         timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
 
         if current_index is not None:
-            data_list[current_index] = [name, perception, timestamp]
+            data_list[current_index] = [name, perception, max_force, timestamp]
             current_index = None
         else:
-            data_list.append([name, perception, timestamp])
+            data_list.append([name, perception, max_force, timestamp])
         
+        # 입력 횟수 증가 및 라벨 갱신
+        current_entry_count += 1
+        update_entry_label()
+
         if len(data_list) >= max_entries:
             save_data()
             messagebox.showinfo("저장 완료", f"{max_entries}개의 데이터가 저장되었습니다.")
@@ -57,12 +74,26 @@ def store_value():
 
 # 이전 값을 불러와 수정하는 함수
 def edit_previous():
-    global current_index, selected_value
+    global current_index, selected_value, current_entry_count
     if data_list:
         current_index = len(data_list) - 1
         selected_value.set(data_list[current_index][1])
+        
+        # 입력 횟수 감소 및 라벨 갱신
+        if current_entry_count > 0:
+            current_entry_count -= 1
+        update_entry_label()
     else:
         messagebox.showerror("오류", "수정할 데이터가 없습니다.")
+
+# 현재 입력 횟수를 업데이트하는 함수
+def update_entry_label():
+    global current_entry_count, max_entries
+    entry_label.config(text=f"Entry: {current_entry_count + 1} / {max_entries}")
+
+# 사용자가 선택한 값을 처리하는 함수
+def on_value_selected():
+    store_value()
 
 # GUI 창을 종료할 때 호출되는 함수
 def on_closing():
@@ -97,10 +128,14 @@ def get_name():
 
 # 메인 입력 창을 표시하는 함수
 def show_main_window():
-    global root, selected_value
+    global root, selected_value, entry_label
     root = tk.Tk()
     root.title("Perception Data Entry")
     root.geometry("500x250")
+
+    # 입력 횟수 라벨
+    entry_label = tk.Label(root, text=f"Entry: 1 / {max_entries}", font=("Arial", 12))
+    entry_label.pack(anchor='nw', padx=10, pady=10)
 
     frame = tk.Frame(root)
     frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
@@ -131,7 +166,8 @@ def show_main_window():
             font=("Arial", 15), 
             indicatoron=0,  # 버튼 스타일을 사용하여 크기 조절
             width=3,        # 체크박스의 너비
-            height=2        # 체크박스의 높이
+            height=2,       # 체크박스의 높이
+            command=on_value_selected  # 선택 시 자동으로 다음 trial로 넘어가도록 설정
         )
         rb.pack(side=tk.LEFT, padx=5)
 
@@ -146,10 +182,6 @@ def show_main_window():
     # 이전 버튼
     button_edit = tk.Button(button_frame, text="이전", command=edit_previous, font=("Arial", 12))
     button_edit.pack(side=tk.LEFT, padx=5)
-
-    # 저장 버튼
-    button_save = tk.Button(button_frame, text="저장", command=store_value, font=("Arial", 12))
-    button_save.pack(side=tk.LEFT, padx=5)
 
     # 창 닫을 때의 동작 설정
     root.protocol("WM_DELETE_WINDOW", on_closing)
