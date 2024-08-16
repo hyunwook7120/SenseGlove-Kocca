@@ -314,7 +314,8 @@ public class CSVManager_modified : MonoBehaviour
                 tempData[29] = null;
             }
         }
-        tempData[30] = DateTime.Now.ToString();
+        tempData[30] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
 
         data.Add((string[])tempData.Clone());
 
