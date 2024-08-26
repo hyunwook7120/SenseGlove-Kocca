@@ -7,6 +7,7 @@ public class MaterialSettingsUI : MonoBehaviour
 {
     public enum ExperimentCase
     {
+        Test,
         Static,
         Dynamic,
         Mix
@@ -36,7 +37,11 @@ public class MaterialSettingsUI : MonoBehaviour
         setMaxForceButton5.onClick.AddListener(() => SetMaxForce(1.0f));
         prevButton.onClick.AddListener(() => PrevForce());
         nextButton.onClick.AddListener(() => NextForce());
-        if (experiment == ExperimentCase.Static)
+        if (experiment == ExperimentCase.Test)
+        {
+            testCase = ShuffleTestCase(MakeTestCase1(1));
+        }
+        else if (experiment == ExperimentCase.Static)
         {
             testCase = ShuffleTestCase(MakeTestCase1(5));
         }
@@ -71,12 +76,7 @@ public class MaterialSettingsUI : MonoBehaviour
     void PrevForce()
     {
         count--;
-        totalCount--;
 
-        if (count < 0)
-        {
-            count = 8 + count;
-        }
         Debug.Log(count+1);
         SetMaxForce(testCase[count][0]);
         SetMaxForceDist(testCase[count][1]);
@@ -85,7 +85,6 @@ public class MaterialSettingsUI : MonoBehaviour
     void NextForce()
     {
         count++;
-        totalCount++;
 
         if (count >= testCase.Count)
         {
@@ -111,7 +110,7 @@ public class MaterialSettingsUI : MonoBehaviour
             new Vector2(0.0f, 0.0f),
             new Vector2(0.1f, 0.0f),
             new Vector2(0.3f, 0.0f),
-            new Vector2(0.6f, 0.0f),
+            new Vector2(0.6f, 0.0f),  
             new Vector2(1.0f, 0.0f),
         };
 

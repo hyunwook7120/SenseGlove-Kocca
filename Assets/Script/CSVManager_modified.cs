@@ -151,38 +151,17 @@ public class CSVManager_modified : MonoBehaviour
     {
         if (!isCoroutineRunning)
         {
-            if (fingerFeedbackScripts == null)
+            if (fingerFeedbackScripts[0].IsTouching() || fingerFeedbackScripts[1].IsTouching() || fingerFeedbackScripts[2].IsTouching() || fingerFeedbackScripts[3].IsTouching())
             {
-                Debug.LogError("fingerFeedbackScripts 배열이 초기화되지 않았습니다.");
-                return;
-            }
-
-            bool anyFingerTouching = false;
-            for (int i = 0; i < fingerFeedbackScripts.Length; i++)
-            {
-                if (fingerFeedbackScripts[i] == null)
+                for (int i = 0; i < 4; i++)
                 {
-                    Debug.LogError($"fingerFeedbackScripts[{i}]가 null입니다.");
-                    continue;
-                }
-
-                if (fingerFeedbackScripts[i].IsTouching())
-                {
-                    if (fingerFeedbackScripts[i].TouchedMaterialScript == null)
-                    {
-                        Debug.LogError($"fingerFeedbackScripts[{i}].TouchedMaterialScript가 null입니다.");
-                    }
-                    else
+                    if (fingerFeedbackScripts[i].IsTouching())
                     {
                         touchedMaterial = fingerFeedbackScripts[i].TouchedMaterialScript;
+                        break;
                     }
-                    anyFingerTouching = true;
-                    break;
                 }
-            }
-
-            if (anyFingerTouching)
-            {
+                // Debug.Log("Touching");
                 touching = true;
                 StartCoroutine(SaveCSVFile());
             }
@@ -191,13 +170,13 @@ public class CSVManager_modified : MonoBehaviour
                 if (selectTouchMode == SelectTouchMode.Always)
                 {
                     touchedMaterial = null;
+                    // Debug.Log("UnTouching");
                     touching = false;
                     StartCoroutine(SaveCSVFile());
                 }
             }
         }
     }
-
 
     void Awake()
     {
@@ -335,7 +314,8 @@ public class CSVManager_modified : MonoBehaviour
                 tempData[29] = null;
             }
         }
-        tempData[30] = DateTime.Now.ToString();
+        tempData[30] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
 
         data.Add((string[])tempData.Clone());
 

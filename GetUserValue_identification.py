@@ -9,7 +9,7 @@ name = ""
 data_list = []
 
 # 최대 입력 횟수
-max_entries = 120
+max_entries = 50
 
 # 현재 수정 중인 인덱스
 current_index = None
