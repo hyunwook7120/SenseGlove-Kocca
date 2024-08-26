@@ -35,7 +35,7 @@ def save_data():
     with open(filename, mode='a', newline='') as file:
         writer = csv.writer(file)
         if not file_exists:
-            writer.writerow(['name', 'perception', 'MaxForce', 'timestamp'])
+            writer.writerow(['name', 'perception', 'maxforce', 'timestamp'])
         writer.writerows(data_list)
     
     # 저장 후 데이터 리스트 초기화
@@ -115,10 +115,10 @@ def get_name():
             messagebox.showerror("입력 오류", "이름을 입력해주세요.")
     
     name_window = tk.Tk()
-    name_window.title("이름 입력")
+    name_window.title("정보 입력")
     name_window.geometry("300x150")
     
-    tk.Label(name_window, text="이름을 입력하세요:", font=("Arial", 12)).pack(pady=10)
+    tk.Label(name_window, text="이름_렌더링 방식을 입력하세요:", font=("Arial", 12)).pack(pady=10)
     name_entry = tk.Entry(name_window, font=("Arial", 12))
     name_entry.pack(pady=5)
     
