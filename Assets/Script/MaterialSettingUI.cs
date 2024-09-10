@@ -32,7 +32,7 @@ public class MaterialSettingsUI : MonoBehaviour
         setMaxForceButton1.onClick.AddListener(() => SetMaxForce(0.0f));
         setMaxForceButton2.onClick.AddListener(() => SetMaxForce(0.1f));
         setMaxForceButton3.onClick.AddListener(() => SetMaxForce(0.3f));
-        setMaxForceButton4.onClick.AddListener(() => SetMaxForce(0.6f));
+        setMaxForceButton4.onClick.AddListener(() => SetMaxForce(0.5f));
         setMaxForceButton5.onClick.AddListener(() => SetMaxForce(1.0f));
         prevButton.onClick.AddListener(() => PrevForce());
         nextButton.onClick.AddListener(() => NextForce());
