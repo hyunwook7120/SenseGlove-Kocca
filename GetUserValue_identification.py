@@ -8,8 +8,8 @@ name = ""
 
 data_list = []
 
-# 최대 입력 횟수
-max_entries = 50
+# 최대 입력 횟수 (초기값은 50)
+max_entries = 32
 
 # 현재 수정 중인 인덱스
 current_index = None
@@ -101,14 +101,18 @@ def on_closing():
         save_data()
     root.destroy()
 
-# 사용자의 이름을 받는 창
+# 사용자의 이름과 실험 모드를 받는 창
 def get_name():
     global name
     
-    def submit_name():
-        global name
+    def submit_name(mode):
+        global name, max_entries
         name = name_entry.get().strip()
         if name:
+            if mode == "tutorial":
+                max_entries = 8
+            elif mode == "main":
+                max_entries = 32
             name_window.destroy()
             show_main_window()
         else:
@@ -116,13 +120,21 @@ def get_name():
     
     name_window = tk.Tk()
     name_window.title("정보 입력")
-    name_window.geometry("300x150")
+    name_window.geometry("300x200")
     
     tk.Label(name_window, text="이름_렌더링 방식을 입력하세요:", font=("Arial", 12)).pack(pady=10)
     name_entry = tk.Entry(name_window, font=("Arial", 12))
     name_entry.pack(pady=5)
     
-    tk.Button(name_window, text="확인", command=submit_name, font=("Arial", 12)).pack(pady=10)
+    # 튜토리얼 버튼과 본실험 버튼
+    button_frame = tk.Frame(name_window)
+    button_frame.pack(pady=30)
+
+    tutorial_button = tk.Button(button_frame, text="튜토리얼", command=lambda: submit_name("tutorial"), font=("Arial", 12))
+    tutorial_button.pack(side=tk.LEFT, padx=10)
+
+    main_button = tk.Button(button_frame, text="본실험", command=lambda: submit_name("main"), font=("Arial", 12))
+    main_button.pack(side=tk.RIGHT, padx=10)
     
     name_window.mainloop()
 

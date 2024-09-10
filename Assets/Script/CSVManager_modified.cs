@@ -39,8 +39,6 @@ public class CSVManager_modified : MonoBehaviour
     public GameObject UIManager;
 
     [Header("CSV")]
-    public string fileName = "hand.csv";
-    
     public string nameText;
     public float minSaveInterval = 5.0f;
 
@@ -57,8 +55,12 @@ public class CSVManager_modified : MonoBehaviour
     List<string[]> data = new List<string[]>();
     string[] tempData;
 
+    private string fileName;
+
     public void Start()
     {
+        
+        fileName = nameText + ".csv";
         // nova2Glove 오브젝트를 넣었는지 확인
         if (nova2Glove == null)
         {
@@ -180,6 +182,7 @@ public class CSVManager_modified : MonoBehaviour
 
     void Awake()
     {
+        fileName = nameText + ".csv";
         tempData = new string[31];
         tempData[0] = "Name";
         tempData[1] = "FFB_Thumb";
@@ -242,15 +245,20 @@ public class CSVManager_modified : MonoBehaviour
         }
  
         string filepath = SystemPath.GetPath();
+        string fullPath = Path.Combine(filepath, fileName);
 
         if (!Directory.Exists(filepath))
         {
             Directory.CreateDirectory(filepath);
         }
 
-        StreamWriter outStream = System.IO.File.CreateText(filepath + fileName);
-        outStream.Write(sb);
-        outStream.Close();
+        using (StreamWriter outStream = System.IO.File.CreateText(fullPath))
+        {
+            outStream.Write(sb.ToString());  // StringBuilder 내용을 문자열로 변환하여 작성
+        }
+
+        // 파일 저장 경로를 로그로 출력
+        Debug.Log($"File saved to: {fullPath}");
     }
 
     IEnumerator SaveCSVFile()
