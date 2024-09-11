@@ -22568,7 +22568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57bfbda9fb3aafe43907eaf0d7875a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  experiment: 0
+  experiment: 1
   material: {fileID: 108385044}
   setMaxForceButton1: {fileID: 555919846}
   setMaxForceButton2: {fileID: 1920436116}
@@ -23110,7 +23110,7 @@ MonoBehaviour:
   findRenderingMode: 0
   nova2Glove: {fileID: 1702379602}
   UIManager: {fileID: 994321405}
-  fileName: heymin.csv
+  fileName: heymin_elastic.csv
   nameText: heymin
   minSaveInterval: 1
 --- !u!4 &1089041189

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,7 +24,6 @@ public class MaterialSettingsUI : MonoBehaviour
     public Button prevButton;
     public Button nextButton;
     int count = -1;
-    int totalCount = 0;
     List<Vector2> testCase;
 
     void Start()
@@ -33,13 +33,13 @@ public class MaterialSettingsUI : MonoBehaviour
         setMaxForceButton1.onClick.AddListener(() => SetMaxForce(0.0f));
         setMaxForceButton2.onClick.AddListener(() => SetMaxForce(0.1f));
         setMaxForceButton3.onClick.AddListener(() => SetMaxForce(0.3f));
-        setMaxForceButton4.onClick.AddListener(() => SetMaxForce(0.6f));
+        setMaxForceButton4.onClick.AddListener(() => SetMaxForce(0.5f));
         setMaxForceButton5.onClick.AddListener(() => SetMaxForce(1.0f));
         prevButton.onClick.AddListener(() => PrevForce());
         nextButton.onClick.AddListener(() => NextForce());
         if (experiment == ExperimentCase.Test)
         {
-            testCase = ShuffleTestCase(MakeTestCase1(1));
+            testCase = ShuffleTestCase(MakeTestCase1(5));
         }
         else if (experiment == ExperimentCase.Static)
         {
@@ -51,8 +51,22 @@ public class MaterialSettingsUI : MonoBehaviour
         }
         else if (experiment == ExperimentCase.Mix)
         {
-            testCase = ShuffleTestCase(MakeTestCase3(5));
+            testCase = ShuffleTestCase(MakeTestCase3(10));
         }
+        
+        string filePath = Path.Combine(Application.dataPath, "Resources", "Log.txt");
+
+        using (StreamWriter sw = new StreamWriter(filePath))
+        {
+            foreach (var item in testCase)
+            {
+                sw.WriteLine(item);
+            }
+        }
+
+        // 파일이 저장된 경로를 디버깅 로그로 출력
+        Debug.Log($"Test cases have been saved to: {filePath}");
+
     }
 
     void SetMaxForce(float value)
@@ -105,13 +119,13 @@ public class MaterialSettingsUI : MonoBehaviour
             new Vector2(0.0f, 0.0f),
             new Vector2(0.1f, 0.0f),
             new Vector2(0.3f, 0.0f),
-            new Vector2(0.6f, 0.0f),
+            new Vector2(0.5f, 0.0f),
             new Vector2(1.0f, 0.0f),
-            new Vector2(0.0f, 0.0f),
-            new Vector2(0.1f, 0.0f),
-            new Vector2(0.3f, 0.0f),
-            new Vector2(0.6f, 0.0f),  
-            new Vector2(1.0f, 0.0f),
+            // new Vector2(0.0f, 0.0f),
+            // new Vector2(0.1f, 0.0f),
+            // new Vector2(0.3f, 0.0f),
+            // new Vector2(0.5f, 0.0f),  
+            // new Vector2(1.0f, 0.0f),
         };
 
         List<Vector2> testCase = new List<Vector2>();
@@ -131,13 +145,13 @@ public class MaterialSettingsUI : MonoBehaviour
             new Vector2(0.0f, 0.04f),
             new Vector2(0.1f, 0.04f),
             new Vector2(0.3f, 0.04f),
-            new Vector2(0.6f, 0.04f),
+            new Vector2(0.5f, 0.04f),
             new Vector2(1.0f, 0.04f),
-            new Vector2(0.0f, 0.04f),
-            new Vector2(0.1f, 0.04f),
-            new Vector2(0.3f, 0.04f),
-            new Vector2(0.6f, 0.04f),
-            new Vector2(1.0f, 0.04f)
+            // new Vector2(0.0f, 0.04f),
+            // new Vector2(0.1f, 0.04f),
+            // new Vector2(0.3f, 0.04f),
+            // new Vector2(0.5f, 0.04f),
+            // new Vector2(1.0f, 0.04f)
         };
 
         List<Vector2> testCase = new List<Vector2>();
@@ -157,12 +171,12 @@ public class MaterialSettingsUI : MonoBehaviour
             new Vector2(0.0f, 0.0f),
             new Vector2(0.1f, 0.0f),
             new Vector2(0.3f, 0.0f),
-            new Vector2(0.6f, 0.0f),
+            new Vector2(0.5f, 0.0f),
             new Vector2(1.0f, 0.0f),
             new Vector2(0.0f, 0.04f),
             new Vector2(0.1f, 0.04f),
             new Vector2(0.3f, 0.04f),
-            new Vector2(0.6f, 0.04f),
+            new Vector2(0.5f, 0.04f),
             new Vector2(1.0f, 0.04f)
         };
         List<Vector2> testCase = new List<Vector2>();
