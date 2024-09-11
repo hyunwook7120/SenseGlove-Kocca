@@ -43,11 +43,11 @@ public class MaterialSettingsUI : MonoBehaviour
         }
         else if (experiment == ExperimentCase.Static)
         {
-            testCase = ShuffleTestCase(MakeTestCase1(5));
+            testCase = ShuffleTestCase(MakeTestCase1(20));
         }
         else if (experiment == ExperimentCase.Dynamic)
         {
-            testCase = ShuffleTestCase(MakeTestCase2(5));
+            testCase = ShuffleTestCase(MakeTestCase2(20));
         }
         else if (experiment == ExperimentCase.Mix)
         {

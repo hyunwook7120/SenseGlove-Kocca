@@ -143,6 +143,7 @@ def on_closing():
     root.destroy()
 
 # 사용자의 이름과 실험 모드를 받는 창
+# 사용자의 이름과 실험 모드를 받는 창
 def get_name():
     global name, show_answer_flag
     
@@ -164,6 +165,7 @@ def get_name():
     
     name_window = tk.Tk()
     name_window.title("정보 입력")
+    name_window.geometry("300x200")
     name_window.geometry("300x200")
     
     tk.Label(name_window, text="이름_렌더링 방식을 입력하세요:", font=("Arial", 12)).pack(pady=10)
