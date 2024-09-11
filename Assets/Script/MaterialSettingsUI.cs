@@ -39,19 +39,19 @@ public class MaterialSettingsUI : MonoBehaviour
         nextButton.onClick.AddListener(() => NextForce());
         if (experiment == ExperimentCase.Test)
         {
-            testCase = ShuffleTestCase(MakeTestCase1(5));
+            testCase = ShuffleTestCase(MakeTestCase1(1));
         }
         else if (experiment == ExperimentCase.Static)
         {
-            testCase = ShuffleTestCase(MakeTestCase1(20));
+            testCase = ShuffleTestCase(MakeTestCase1(5));
         }
         else if (experiment == ExperimentCase.Dynamic)
         {
-            testCase = ShuffleTestCase(MakeTestCase2(20));
+            testCase = ShuffleTestCase(MakeTestCase2(5));
         }
         else if (experiment == ExperimentCase.Mix)
         {
-            testCase = ShuffleTestCase(MakeTestCase3(10));
+            testCase = ShuffleTestCase(MakeTestCase3(5));
         }
         
         string filePath = Path.Combine(Application.dataPath, "Resources", "Log.txt");
