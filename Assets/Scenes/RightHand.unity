@@ -23110,9 +23110,8 @@ MonoBehaviour:
   findRenderingMode: 0
   nova2Glove: {fileID: 1702379602}
   UIManager: {fileID: 994321405}
-  fileName: heymin_elastic.csv
-  nameText: heymin
-  minSaveInterval: 1
+  nameText: dohoon_I_4
+  minSaveInterval: 0.02
 --- !u!4 &1089041189
 Transform:
   m_ObjectHideFlags: 0
