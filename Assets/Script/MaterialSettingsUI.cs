@@ -13,7 +13,13 @@ public class MaterialSettingsUI : MonoBehaviour
         Dynamic,
         Mix
     }
+    // public enum HeatCase
+    // {
+    //     None,
+    //     Use
+    // }
     public ExperimentCase experiment;
+    // public HeatCase heat;
     public SG.SG_Material material; // SG_Material 스크립트가 연결된 게임 오브젝트
 
     public Button setMaxForceButton1;
@@ -30,11 +36,7 @@ public class MaterialSettingsUI : MonoBehaviour
     {
         SetMaxForce(0.0f);
         SetMaxForceDist(0.0f);
-        setMaxForceButton1.onClick.AddListener(() => SetMaxForce(0.0f));
-        setMaxForceButton2.onClick.AddListener(() => SetMaxForce(0.1f));
-        setMaxForceButton3.onClick.AddListener(() => SetMaxForce(0.3f));
-        setMaxForceButton4.onClick.AddListener(() => SetMaxForce(0.5f));
-        setMaxForceButton5.onClick.AddListener(() => SetMaxForce(1.0f));
+
         prevButton.onClick.AddListener(() => PrevForce());
         nextButton.onClick.AddListener(() => NextForce());
         if (experiment == ExperimentCase.Test)
@@ -44,10 +46,20 @@ public class MaterialSettingsUI : MonoBehaviour
         else if (experiment == ExperimentCase.Static)
         {
             testCase = ShuffleTestCase(MakeTestCase1(5));
+            setMaxForceButton1.onClick.AddListener(() => SetMaxForce(0.0f));
+            setMaxForceButton2.onClick.AddListener(() => SetMaxForce(0.1f));
+            setMaxForceButton3.onClick.AddListener(() => SetMaxForce(0.3f));
+            setMaxForceButton4.onClick.AddListener(() => SetMaxForce(0.5f));
+            setMaxForceButton5.onClick.AddListener(() => SetMaxForce(1.0f));
         }
         else if (experiment == ExperimentCase.Dynamic)
         {
             testCase = ShuffleTestCase(MakeTestCase2(5));
+            setMaxForceButton1.onClick.AddListener(() => {SetMaxForce(0.0f); SetMaxForceDist(0.04f);});
+            setMaxForceButton2.onClick.AddListener(() => {SetMaxForce(0.1f); SetMaxForceDist(0.04f);});
+            setMaxForceButton3.onClick.AddListener(() => {SetMaxForce(0.3f); SetMaxForceDist(0.04f);});
+            setMaxForceButton4.onClick.AddListener(() => {SetMaxForce(0.5f); SetMaxForceDist(0.04f);});
+            setMaxForceButton5.onClick.AddListener(() => {SetMaxForce(1.0f); SetMaxForceDist(0.04f);});
         }
         else if (experiment == ExperimentCase.Mix)
         {
