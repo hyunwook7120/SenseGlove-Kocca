@@ -65,17 +65,17 @@ public class MaterialSettingsUI : MonoBehaviour
             setMaxForceButton3.onClick.AddListener(() => SetMaxForce(0.3f));
             setMaxForceButton4.onClick.AddListener(() => SetMaxForce(0.5f));
             setMaxForceButton5.onClick.AddListener(() => SetMaxForce(1.0f));
-            SetMaxForceDist(0.04f);
+            SetMaxForceDist(0.06f);
             materialProperties.forceRepsonse = i;
         }
         else if (experiment == ExperimentCase.Dynamic)
         {
             testCase = ShuffleTestCase(MakeTestCase2(5));
-            setMaxForceButton1.onClick.AddListener(() => {SetMaxForce(0.0f); SetMaxForceDist(0.04f); materialProperties.forceRepsonse=s1;});
-            setMaxForceButton2.onClick.AddListener(() => {SetMaxForce(0.1f); SetMaxForceDist(0.04f); materialProperties.forceRepsonse=s2;});
-            setMaxForceButton3.onClick.AddListener(() => {SetMaxForce(0.3f); SetMaxForceDist(0.04f); materialProperties.forceRepsonse=s3;});
-            setMaxForceButton4.onClick.AddListener(() => {SetMaxForce(0.5f); SetMaxForceDist(0.04f); materialProperties.forceRepsonse=s4;});
-            setMaxForceButton5.onClick.AddListener(() => {SetMaxForce(1.0f); SetMaxForceDist(0.04f); materialProperties.forceRepsonse=s5;});
+            setMaxForceButton1.onClick.AddListener(() => {SetMaxForce(0.0f); SetMaxForceDist(0.06f); materialProperties.forceRepsonse=s1;});
+            setMaxForceButton2.onClick.AddListener(() => {SetMaxForce(0.1f); SetMaxForceDist(0.06f); materialProperties.forceRepsonse=s2;});
+            setMaxForceButton3.onClick.AddListener(() => {SetMaxForce(0.3f); SetMaxForceDist(0.06f); materialProperties.forceRepsonse=s3;});
+            setMaxForceButton4.onClick.AddListener(() => {SetMaxForce(0.5f); SetMaxForceDist(0.06f); materialProperties.forceRepsonse=s4;});
+            setMaxForceButton5.onClick.AddListener(() => {SetMaxForce(1.0f); SetMaxForceDist(0.06f); materialProperties.forceRepsonse=s5;});
         }
         else if (experiment == ExperimentCase.Mix)
         {
@@ -167,11 +167,11 @@ public class MaterialSettingsUI : MonoBehaviour
     {
         List<Vector2> originalTestCase = new List<Vector2>
         {
-            new Vector2(0.0f, 0.04f),
-            new Vector2(0.1f, 0.04f),
-            new Vector2(0.3f, 0.04f),
-            new Vector2(0.5f, 0.04f),
-            new Vector2(1.0f, 0.04f),
+            new Vector2(0.0f, 0.06f),
+            new Vector2(0.1f, 0.06f),
+            new Vector2(0.3f, 0.06f),
+            new Vector2(0.5f, 0.06f),
+            new Vector2(1.0f, 0.06f),
             // new Vector2(0.0f, 0.0f),
             // new Vector2(0.1f, 0.0f),
             // new Vector2(0.3f, 0.0f),
@@ -193,16 +193,16 @@ public class MaterialSettingsUI : MonoBehaviour
     {
         List<Vector2> originalTestCase = new List<Vector2>
         {
-            new Vector2(0.0f, 0.04f),
-            new Vector2(0.1f, 0.04f),
-            new Vector2(0.3f, 0.04f),
-            new Vector2(0.5f, 0.04f),
-            new Vector2(1.0f, 0.04f),
-            // new Vector2(0.0f, 0.04f),
-            // new Vector2(0.1f, 0.04f),
-            // new Vector2(0.3f, 0.04f),
-            // new Vector2(0.5f, 0.04f),
-            // new Vector2(1.0f, 0.04f)
+            new Vector2(0.0f, 0.06f),
+            new Vector2(0.1f, 0.06f),
+            new Vector2(0.3f, 0.06f),
+            new Vector2(0.5f, 0.06f),
+            new Vector2(1.0f, 0.06f),
+            // new Vector2(0.0f, 0.06f),
+            // new Vector2(0.1f, 0.06f),
+            // new Vector2(0.3f, 0.06f),
+            // new Vector2(0.5f, 0.06f),
+            // new Vector2(1.0f, 0.06f)
         };
 
         List<Vector2> testCase = new List<Vector2>();
@@ -224,11 +224,11 @@ public class MaterialSettingsUI : MonoBehaviour
             new Vector2(0.3f, 0.0f),
             new Vector2(0.5f, 0.0f),
             new Vector2(1.0f, 0.0f),
-            new Vector2(0.0f, 0.04f),
-            new Vector2(0.1f, 0.04f),
-            new Vector2(0.3f, 0.04f),
-            new Vector2(0.5f, 0.04f),
-            new Vector2(1.0f, 0.04f)
+            new Vector2(0.0f, 0.06f),
+            new Vector2(0.1f, 0.06f),
+            new Vector2(0.3f, 0.06f),
+            new Vector2(0.5f, 0.06f),
+            new Vector2(1.0f, 0.06f)
         };
         List<Vector2> testCase = new List<Vector2>();
 
