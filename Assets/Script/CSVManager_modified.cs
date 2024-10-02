@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text; // StringBuilder용도
+using Palmmedia.ReportGenerator.Core;
 using SG;
 using TMPro;
 using UnityEngine;
@@ -148,6 +149,9 @@ public class CSVManager_modified : MonoBehaviour
         {
             Debug.Log($"Finger {f} ForceLevel: {fingerFeedbackScripts[f].ForceLevel}");
         }
+
+        UISetting = UIManager.GetComponent<MaterialSettingsUI>();
+
     }
     void Update()
     {
@@ -308,14 +312,15 @@ public class CSVManager_modified : MonoBehaviour
         {
             if (touching)
             {
-                if (touchedMaterial.materialProperties.maxForceDist == 0.0f || this.isLinear(touchedMaterial.materialProperties.forceRepsonse))
-                {
-                    tempData[29] = "1";
-                }
-                else
-                {
-                    tempData[29] = "2";
-                }
+                // if (touchedMaterial.materialProperties.maxForceDist == 0.0f || this.isLinear(touchedMaterial.materialProperties.forceRepsonse))
+                // {
+                //     tempData[29] = "S";
+                // }
+                // else
+                // {
+                //     tempData[29] = "I";
+                // }
+                tempData[29] = UISetting.ToString();
             }
             else
             {

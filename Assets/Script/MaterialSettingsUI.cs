@@ -3,6 +3,8 @@ using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using SG;
+using Unity.VisualScripting;
 
 public class MaterialSettingsUI : MonoBehaviour
 {
@@ -29,11 +31,23 @@ public class MaterialSettingsUI : MonoBehaviour
     public Button setMaxForceButton5;
     public Button prevButton;
     public Button nextButton;
+    public CurveController CurveController;
     int count = -1;
     List<Vector2> testCase;
+    SG.SG_MaterialProperties materialProperties;
+    AnimationCurve s1, s2,s3, s4, s5, i;
 
     void Start()
     {
+        materialProperties = material.GetComponent<SG_Material>().materialProperties;
+
+        s1 = CurveController.shift_1;
+        s2 = CurveController.shift_2;
+        s3 = CurveController.shift_3;
+        s4 = CurveController.shift_4;
+        s5 = CurveController.shift_5;
+        i  = CurveController.impedence;
+
         SetMaxForce(0.0f);
         SetMaxForceDist(0.0f);
 
@@ -51,15 +65,16 @@ public class MaterialSettingsUI : MonoBehaviour
             setMaxForceButton3.onClick.AddListener(() => SetMaxForce(0.3f));
             setMaxForceButton4.onClick.AddListener(() => SetMaxForce(0.5f));
             setMaxForceButton5.onClick.AddListener(() => SetMaxForce(1.0f));
+            materialProperties.forceRepsonse = i;
         }
         else if (experiment == ExperimentCase.Dynamic)
         {
             testCase = ShuffleTestCase(MakeTestCase2(5));
-            setMaxForceButton1.onClick.AddListener(() => {SetMaxForce(0.0f); SetMaxForceDist(0.04f);});
-            setMaxForceButton2.onClick.AddListener(() => {SetMaxForce(0.1f); SetMaxForceDist(0.04f);});
-            setMaxForceButton3.onClick.AddListener(() => {SetMaxForce(0.3f); SetMaxForceDist(0.04f);});
-            setMaxForceButton4.onClick.AddListener(() => {SetMaxForce(0.5f); SetMaxForceDist(0.04f);});
-            setMaxForceButton5.onClick.AddListener(() => {SetMaxForce(1.0f); SetMaxForceDist(0.04f);});
+            setMaxForceButton1.onClick.AddListener(() => {SetMaxForce(0.0f); SetMaxForceDist(0.04f); materialProperties.forceRepsonse=s1;});
+            setMaxForceButton2.onClick.AddListener(() => {SetMaxForce(0.1f); SetMaxForceDist(0.04f); materialProperties.forceRepsonse=s2;});
+            setMaxForceButton3.onClick.AddListener(() => {SetMaxForce(0.3f); SetMaxForceDist(0.04f); materialProperties.forceRepsonse=s3;});
+            setMaxForceButton4.onClick.AddListener(() => {SetMaxForce(0.5f); SetMaxForceDist(0.04f); materialProperties.forceRepsonse=s4;});
+            setMaxForceButton5.onClick.AddListener(() => {SetMaxForce(1.0f); SetMaxForceDist(0.04f); materialProperties.forceRepsonse=s5;});
         }
         else if (experiment == ExperimentCase.Mix)
         {
@@ -121,6 +136,29 @@ public class MaterialSettingsUI : MonoBehaviour
             Debug.Log(count+1);
             SetMaxForce(testCase[count][0]);
             SetMaxForceDist(testCase[count][1]);
+            if (experiment == ExperimentCase.Dynamic)
+            {
+                if (testCase[count][0] == 0.0f)
+                {
+                    materialProperties.forceRepsonse = s1;
+                }
+                else if (testCase[count][0] == 0.1f)
+                {
+                    materialProperties.forceRepsonse = s2;
+                }
+                else if (testCase[count][0] == 0.3f)
+                {
+                    materialProperties.forceRepsonse = s3;
+                }
+                else if (testCase[count][0] == 0.5f)
+                {
+                    materialProperties.forceRepsonse = s4;
+                }
+                else if (testCase[count][0] == 1.0f)
+                {
+                    materialProperties.forceRepsonse = s5;
+                }
+            }
         }
     }
 

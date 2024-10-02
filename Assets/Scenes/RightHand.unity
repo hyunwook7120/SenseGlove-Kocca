@@ -22568,7 +22568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57bfbda9fb3aafe43907eaf0d7875a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  experiment: 1
+  experiment: 2
   material: {fileID: 108385044}
   setMaxForceButton1: {fileID: 555919846}
   setMaxForceButton2: {fileID: 1920436116}
@@ -23093,7 +23093,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1089041188
 MonoBehaviour:
   m_ObjectHideFlags: 0
