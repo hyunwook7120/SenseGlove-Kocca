@@ -65,6 +65,7 @@ public class MaterialSettingsUI : MonoBehaviour
             setMaxForceButton3.onClick.AddListener(() => SetMaxForce(0.3f));
             setMaxForceButton4.onClick.AddListener(() => SetMaxForce(0.5f));
             setMaxForceButton5.onClick.AddListener(() => SetMaxForce(1.0f));
+            SetMaxForceDist(0.04f);
             materialProperties.forceRepsonse = i;
         }
         else if (experiment == ExperimentCase.Dynamic)
@@ -166,11 +167,11 @@ public class MaterialSettingsUI : MonoBehaviour
     {
         List<Vector2> originalTestCase = new List<Vector2>
         {
-            new Vector2(0.0f, 0.0f),
-            new Vector2(0.1f, 0.0f),
-            new Vector2(0.3f, 0.0f),
-            new Vector2(0.5f, 0.0f),
-            new Vector2(1.0f, 0.0f),
+            new Vector2(0.0f, 0.04f),
+            new Vector2(0.1f, 0.04f),
+            new Vector2(0.3f, 0.04f),
+            new Vector2(0.5f, 0.04f),
+            new Vector2(1.0f, 0.04f),
             // new Vector2(0.0f, 0.0f),
             // new Vector2(0.1f, 0.0f),
             // new Vector2(0.3f, 0.0f),
