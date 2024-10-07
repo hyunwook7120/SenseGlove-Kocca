@@ -1215,8 +1215,8 @@ Transform:
   m_GameObject: {fileID: 108385041}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5074722, y: -0.5189519, z: 0.4809255, w: 0.49180448}
-  m_LocalPosition: {x: -0.5082, y: 1.2048, z: 1.3202}
-  m_LocalScale: {x: 0.08637, y: 0.08637, z: 0.08637}
+  m_LocalPosition: {x: -0.508, y: 1.19, z: 1.32}
+  m_LocalScale: {x: 0.12, y: 0.12, z: 0.12}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -22568,7 +22568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57bfbda9fb3aafe43907eaf0d7875a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  experiment: 1
+  experiment: 2
   material: {fileID: 108385044}
   setMaxForceButton1: {fileID: 555919846}
   setMaxForceButton2: {fileID: 1920436116}
@@ -23111,7 +23111,7 @@ MonoBehaviour:
   findRenderingMode: 0
   nova2Glove: {fileID: 1702379602}
   UIManager: {fileID: 994321405}
-  nameText: dohoon_I_4
+  nameText: M3_S_4
   minSaveInterval: 0.02
 --- !u!4 &1089041189
 Transform:

@@ -143,7 +143,6 @@ def on_closing():
     root.destroy()
 
 # 사용자의 이름과 실험 모드를 받는 창
-# 사용자의 이름과 실험 모드를 받는 창
 def get_name():
     global name, show_answer_flag
     
