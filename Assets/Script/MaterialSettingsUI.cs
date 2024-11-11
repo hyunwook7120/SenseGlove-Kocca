@@ -103,24 +103,27 @@ public class MaterialSettingsUI : MonoBehaviour
         }
         else if (experiment == ExperimentCase.AME)
         {
-            testCase1 = ShuffleTestCase1(MakeTestCase5(1));
+            testCase1 = ShuffleTestCase1(MakeTestCase5(4));
             setMaxForceButton1.onClick.AddListener(() => {SetMaxForce(0.1f); materialProperties.forceRepsonse=s2;});
             setMaxForceButton2.onClick.AddListener(() => {SetMaxForce(0.5f); materialProperties.forceRepsonse=s4;});
             setMaxForceButton3.onClick.AddListener(() => {SetMaxForce(1.0f); materialProperties.forceRepsonse=s5;});
+            setMaxForceButton4.gameObject.SetActive(false);
+            setMaxForceButton5.gameObject.SetActive(false);
+            ChangeButton.gameObject.SetActive(false);
         }
         
         string filePath = Path.Combine(Application.dataPath, "Resources", "Log.txt");
 
         using (StreamWriter sw = new StreamWriter(filePath))
         {
-            if (experiment != ExperimentCase.HeatForce)
+            if ((experiment != ExperimentCase.HeatForce) && (experiment != ExperimentCase.AME))
             {
                 foreach (var item in testCase)
                 {
                     sw.WriteLine(item);
                 }
             }
-            else if (experiment == ExperimentCase.HeatForce)
+            else if ((experiment == ExperimentCase.HeatForce) || (experiment == ExperimentCase.AME))
             {
                 foreach (var item in testCase1)
                 {
@@ -164,7 +167,7 @@ public class MaterialSettingsUI : MonoBehaviour
     {
         count++;
 
-        if ((experiment != ExperimentCase.HeatForce) && (count >= testCase.Count))
+        if ((experiment != ExperimentCase.HeatForce) && (experiment != ExperimentCase.AME) && (count >= testCase.Count))
         {
             Debug.LogError("Finish");
         }
@@ -176,7 +179,7 @@ public class MaterialSettingsUI : MonoBehaviour
         {
             Debug.Log(count+1);
             
-            if (experiment == ExperimentCase.HeatForce)
+            if ((experiment == ExperimentCase.HeatForce) || (experiment == ExperimentCase.AME))
             {
                 SetMaxForce(testCase1[count][0]);
                 ChangeTemp(testCase1[count][2]);
