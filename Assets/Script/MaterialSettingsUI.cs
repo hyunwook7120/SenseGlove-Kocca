@@ -14,10 +14,12 @@ public class MaterialSettingsUI : MonoBehaviour
         Static,
         Dynamic,
         Mix,
-        HeatForce
+        HeatForce,
+        AME
     }
 
     public ExperimentCase experiment;
+    ExperimentCase experiment1;
     public SG.SG_Material material; // SG_Material 스크립트가 연결된 게임 오브젝트
 
     public Button setMaxForceButton1;
@@ -92,6 +94,19 @@ public class MaterialSettingsUI : MonoBehaviour
         else if (experiment == ExperimentCase.HeatForce)
         {
             testCase1 = ShuffleTestCase1(MakeTestCase4(1));
+            experiment1 = ExperimentCase.Static;
+            setMaxForceButton1.onClick.AddListener(() => {SetMaxForce(0.0f); materialProperties.forceRepsonse=i;});
+            setMaxForceButton2.onClick.AddListener(() => {SetMaxForce(0.1f); materialProperties.forceRepsonse=i;});
+            setMaxForceButton3.onClick.AddListener(() => {SetMaxForce(0.3f); materialProperties.forceRepsonse=i;});
+            setMaxForceButton4.onClick.AddListener(() => {SetMaxForce(0.5f); materialProperties.forceRepsonse=i;});
+            setMaxForceButton5.onClick.AddListener(() => {SetMaxForce(1.0f); materialProperties.forceRepsonse=i;});
+        }
+        else if (experiment == ExperimentCase.AME)
+        {
+            testCase1 = ShuffleTestCase1(MakeTestCase5(1));
+            setMaxForceButton1.onClick.AddListener(() => {SetMaxForce(0.1f); materialProperties.forceRepsonse=s2;});
+            setMaxForceButton2.onClick.AddListener(() => {SetMaxForce(0.5f); materialProperties.forceRepsonse=s4;});
+            setMaxForceButton3.onClick.AddListener(() => {SetMaxForce(1.0f); materialProperties.forceRepsonse=s5;});
         }
         
         string filePath = Path.Combine(Application.dataPath, "Resources", "Log.txt");
@@ -223,25 +238,25 @@ public class MaterialSettingsUI : MonoBehaviour
 
     void ChangeCase()
     {
-        if (experiment == ExperimentCase.Static)
+        if (experiment1 == ExperimentCase.Static)
         {
             setMaxForceButton1.onClick.AddListener(() => {SetMaxForce(0.0f); materialProperties.forceRepsonse=s1;});
             setMaxForceButton2.onClick.AddListener(() => {SetMaxForce(0.1f); materialProperties.forceRepsonse=s2;});
             setMaxForceButton3.onClick.AddListener(() => {SetMaxForce(0.3f); materialProperties.forceRepsonse=s3;});
             setMaxForceButton4.onClick.AddListener(() => {SetMaxForce(0.5f); materialProperties.forceRepsonse=s4;});
             setMaxForceButton5.onClick.AddListener(() => {SetMaxForce(1.0f); materialProperties.forceRepsonse=s5;});
-            Debug.Log("D");
-            experiment = ExperimentCase.Dynamic;
+            Debug.Log("Dynamic");
+            experiment1 = ExperimentCase.Dynamic;
         }
-        else if (experiment == ExperimentCase.Dynamic)
+        else if (experiment1 == ExperimentCase.Dynamic)
         {
             setMaxForceButton1.onClick.AddListener(() => {SetMaxForce(0.0f); materialProperties.forceRepsonse=i;});
             setMaxForceButton2.onClick.AddListener(() => {SetMaxForce(0.1f); materialProperties.forceRepsonse=i;});
             setMaxForceButton3.onClick.AddListener(() => {SetMaxForce(0.3f); materialProperties.forceRepsonse=i;});
             setMaxForceButton4.onClick.AddListener(() => {SetMaxForce(0.5f); materialProperties.forceRepsonse=i;});
             setMaxForceButton5.onClick.AddListener(() => {SetMaxForce(1.0f); materialProperties.forceRepsonse=i;});
-            Debug.Log("S");
-            experiment = ExperimentCase.Static;
+            Debug.Log("Static");
+            experiment1 = ExperimentCase.Static;
         }
     }
 
@@ -349,6 +364,30 @@ public class MaterialSettingsUI : MonoBehaviour
             new Vector3(1.0f, 0.0f, 40f),
             new Vector3(0.1f, 2.0f, 40f),
             new Vector3(0.3f, 3.0f, 40f),
+            new Vector3(0.5f, 4.0f, 40f),
+            new Vector3(1.0f, 5.0f, 40f)
+        };
+        List<Vector3> testCase = new List<Vector3>();
+
+        for (int i = 0; i < repeat; i++)
+        {
+            testCase.AddRange(originalTestCase);
+        }
+
+        return testCase;
+    }
+
+        List<Vector3> MakeTestCase5(int repeat)
+    {
+        List<Vector3> originalTestCase = new List<Vector3>
+        {
+            new Vector3(0.1f, 2.0f, 24f),
+            new Vector3(0.5f, 4.0f, 24f),
+            new Vector3(1.0f, 5.0f, 24f),
+            new Vector3(0.1f, 2.0f, 32f),
+            new Vector3(0.5f, 4.0f, 32f),
+            new Vector3(1.0f, 5.0f, 32f),
+            new Vector3(0.1f, 2.0f, 40f),
             new Vector3(0.5f, 4.0f, 40f),
             new Vector3(1.0f, 5.0f, 40f)
         };

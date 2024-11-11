@@ -226,8 +226,8 @@ public class CSVManager_modified : MonoBehaviour
         }
         tempData[27] = "MaxForce";
         tempData[28] = "Material";
-        tempData[29] = "Rendering Method";
-        tempData[30] = "TimeStamp";
+        // tempData[29] = "Rendering Method";
+        tempData[29] = "TimeStamp";
 
         
         data.Add((string[])tempData.Clone());
@@ -308,26 +308,26 @@ public class CSVManager_modified : MonoBehaviour
             tempData[28] = null;
         }
 
-        if (findRenderingMode == FindRenderingMode.Use)
-        {
-            if (touching)
-            {
-                // if (touchedMaterial.materialProperties.maxForceDist == 0.0f || this.isLinear(touchedMaterial.materialProperties.forceRepsonse))
-                // {
-                //     tempData[29] = "S";
-                // }
-                // else
-                // {
-                //     tempData[29] = "I";
-                // }
-                tempData[29] = UISetting.ToString();
-            }
-            else
-            {
-                tempData[29] = null;
-            }
-        }
-        tempData[30] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        // if (findRenderingMode == FindRenderingMode.Use)
+        // {
+        //     if (touching)
+        //     {
+        //         // if (touchedMaterial.materialProperties.maxForceDist == 0.0f || this.isLinear(touchedMaterial.materialProperties.forceRepsonse))
+        //         // {
+        //         //     tempData[29] = "S";
+        //         // }
+        //         // else
+        //         // {
+        //         //     tempData[29] = "I";
+        //         // }
+        //         tempData[29] = null
+        //     }
+        //     else
+        //     {
+        //         tempData[29] = null;
+        //     }
+        // }
+        tempData[29] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
 
         data.Add((string[])tempData.Clone());
